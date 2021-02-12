@@ -10,7 +10,7 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<PhoneNumber> numbers;
 
     public void addPhoneNumber(PhoneNumber phoneNumber) {

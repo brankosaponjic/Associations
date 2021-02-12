@@ -6,6 +6,10 @@ import brankosaponjic.associations.onetomany.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+import java.util.Set;
 
 
 @SpringBootTest
@@ -31,5 +35,17 @@ class AssociationsApplicationTests {
         customer.addPhoneNumber(pn2);
 
         customerRepository.save(customer);
+    }
+
+    @Test
+    @Transactional
+    void testLoadCustomer() {
+        Optional<Customer> cus = customerRepository.findById(4L);
+        if (cus.isPresent()) {
+            System.out.println(cus.get().getName());
+            Set<PhoneNumber> numbers = cus.get().getNumbers();
+            numbers.forEach(p -> System.out.println(p.getNumber() + ", " +p.getType()));
+        }
+
     }
 }
