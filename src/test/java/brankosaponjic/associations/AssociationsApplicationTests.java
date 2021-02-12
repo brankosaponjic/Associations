@@ -48,4 +48,15 @@ class AssociationsApplicationTests {
         }
 
     }
+
+    @Test
+    void testUpdateCustomer() {
+        Optional<Customer> cus = customerRepository.findById(1L);
+        if (cus.isPresent()) {
+            cus.get().setName("James Dean");
+            Set<PhoneNumber> numbers = cus.get().getNumbers();
+            numbers.forEach(p -> p.setType("office"));
+            customerRepository.save(cus.get());
+        }
+    }
 }
